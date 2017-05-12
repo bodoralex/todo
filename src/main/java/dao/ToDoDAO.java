@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface ToDoDAO {
 
-    ToDo getTodo(int id, HttpSession session);
     List<ToDo> getTodos(HttpSession session);
     List<ToDo> getDoneToDos(HttpSession session);
     List<ToDo> getInProgressToDos(HttpSession session);

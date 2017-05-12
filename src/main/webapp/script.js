@@ -1,17 +1,22 @@
 var filter = 0;
 var status = "a";
 function refresh() {
-    $.get("./todo",{state:status}, show);
+    $.get("./todo", {state: status}, show);
 }
 
 function show(toDoList) {
+    if (toDoList == null) {
+        $("#todos").text("there is no todos");
+        return;
+
+    }
 
     $("#todos").empty();
     toDoList.forEach(function (toDo) {
         var li = document.createElement("li");
         li.id = toDo.id;
         li.innerHTML += '<i class="fa fa-trash icons" aria-hidden="true" onclick="del(' + toDo.id + ')"></i>';
-        li.innerHTML += '<i class="fa fa-check-square icons" aria-hidden="true" onclick="toggle('+toDo.id+')"></i>';
+        li.innerHTML += '<i class="fa fa-check-square icons" aria-hidden="true" onclick="toggle(' + toDo.id + ')"></i>';
 
         var text = document.createElement("span");
         text.innerHTML = toDo.text;
@@ -24,11 +29,11 @@ function show(toDoList) {
 }
 
 function toggle(id) {
-    $.post("./toggle", {id:id}, refresh)
+    $.post("./toggle", {id: id}, refresh)
 }
 
 function del(id) {
-    $.post("./delete", {id:id}, refresh)
+    $.post("./delete", {id: id}, refresh)
 }
 
 function showDone() {
@@ -57,6 +62,5 @@ $(function () {
             });
         }
     });
-
-
+    refresh();
 });

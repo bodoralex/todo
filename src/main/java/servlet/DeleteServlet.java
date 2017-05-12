@@ -12,12 +12,11 @@ import java.io.IOException;
 /**
  * Created by bodor on 2017.05.11..
  */
-@WebServlet("/toggle/*")
-public class ToDoToggleServlet extends HttpServlet {
+@WebServlet("/delete/*")
+public class DeleteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        System.out.println(id);
-        MemoryDAO.getInstance().toggleTodo(id, request.getSession());
+        MemoryDAO.getInstance().deleteTodo(id, request.getSession());
     }
 
 }
