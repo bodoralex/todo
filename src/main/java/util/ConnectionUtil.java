@@ -14,7 +14,7 @@ public final class ConnectionUtil {
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String DATABASE_HOST = "localhost";
     private static final String DATABASE_USER = "root";
-    private static final String DATABASE_PASSWORD = "";
+    private static final String DATABASE_PASSWORD = "root";
     private static final int DATABASE_PORT = 3306;
 
     static {

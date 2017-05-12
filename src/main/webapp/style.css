@@ -1,0 +1,16 @@
+/**{*/
+    /*padding: 0;*/
+    /*margin: 0;*/
+/*}*/
+
+.done{
+    color: grey;
+    text-decoration: line-through;
+}
+
+.icons{
+    float: right;
+    display: inline-block;
+    width: 20px;
+
+}
