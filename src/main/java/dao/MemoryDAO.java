@@ -10,15 +10,13 @@ import java.util.*;
  */
 public class MemoryDAO implements ToDoDAO {
     private static MemoryDAO ourInstance = new MemoryDAO();
+    private Map<HttpSession, List<ToDo>> toDos = new HashMap<HttpSession, List<ToDo>>();
+    private int idCounter = 0;
+    private MemoryDAO() {
+    }
 
     public static MemoryDAO getInstance() {
         return ourInstance;
-    }
-
-    private Map<HttpSession, List<ToDo>> toDos = new HashMap<HttpSession, List<ToDo>>();
-    private int idCounter = 0;
-
-    private MemoryDAO() {
     }
 
     @Override

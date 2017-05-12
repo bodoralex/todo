@@ -9,6 +9,13 @@ public class ToDo {
     private int id;
 
 
+    public ToDo(String text, int id) {
+        this.text = text;
+        this.done = false;
+        this.id = id;
+
+    }
+
     public String getText() {
         return text;
     }
@@ -23,13 +30,6 @@ public class ToDo {
 
     public void setDone(boolean done) {
         this.done = done;
-    }
-
-    public ToDo(String text, int id) {
-        this.text = text;
-        this.done = false;
-        this.id = id;
-
     }
 
     public int getId() {

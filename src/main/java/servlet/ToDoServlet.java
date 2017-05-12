@@ -32,7 +32,7 @@ public class ToDoServlet extends HttpServlet {
         Gson gson = new Gson();
         HttpSession session = request.getSession();
 
-        switch (status){
+        switch (status) {
             case "a":
                 writer.println(gson.toJson(dao.getTodos(session)));
                 break;
