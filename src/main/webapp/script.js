@@ -8,7 +8,6 @@ function show(toDoList) {
     if (toDoList == null) {
         $("#todos").text("there is no todos");
         return;
-
     }
 
     $("#todos").empty();
