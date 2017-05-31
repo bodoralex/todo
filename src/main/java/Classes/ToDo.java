@@ -5,13 +5,20 @@ package Classes;
  */
 public class ToDo {
     private String text;
-    private boolean done;
+    private int done;
     private int id;
 
 
     public ToDo(String text, int id) {
         this.text = text;
-        this.done = false;
+        this.done = 0;
+        this.id = id;
+
+    }
+
+    public ToDo(String text, int id, int done) {
+        this.text = text;
+        this.done = done;
         this.id = id;
 
     }
@@ -24,11 +31,11 @@ public class ToDo {
         this.text = text;
     }
 
-    public boolean isDone() {
+    public int isDone() {
         return done;
     }
 
-    public void setDone(boolean done) {
+    public void setDone(int done) {
         this.done = done;
     }
 

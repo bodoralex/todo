@@ -19,11 +19,12 @@ function show(toDoList) {
 
         var text = document.createElement("span");
         text.innerHTML = toDo.text;
-        if (toDo.done == true) {
+        if (toDo.done === true || toDo.done === 1) {
             text.className = "done";
         }
         li.append(text);
         $("#todos").append(li);
+
     });
 }
 
@@ -50,8 +51,6 @@ function showAll() {
     refresh();
 }
 $(function () {
-
-
     $('#newtodo').keydown(function (event) {
         var keyCode = (event.keyCode ? event.keyCode : event.which);
         if (keyCode == 13) {

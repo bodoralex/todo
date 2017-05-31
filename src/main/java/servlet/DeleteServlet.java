@@ -1,6 +1,8 @@
 package servlet;
 
-import dao.MemoryDAO;
+import dao.DBDAO;
+import dao.ToDoDAO;
+import util.ConnectionUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,9 +16,18 @@ import java.io.IOException;
  */
 @WebServlet("/delete/*")
 public class DeleteServlet extends HttpServlet {
+
+    //ToDoDAO dao = MemoryDAO.getInstance();
+    private ToDoDAO dao = new DBDAO(ConnectionUtil.getConnection(ConnectionUtil.DatabaseName.ToDo));
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
-        MemoryDAO.getInstance().deleteTodo(id, request.getSession());
+        dao.deleteTodo(id, request.getSession());
+    }
+
+    @Override
+    public void destroy() {
+        if (dao instanceof DBDAO) ((DBDAO) dao).closeConnection();
     }
 
 }

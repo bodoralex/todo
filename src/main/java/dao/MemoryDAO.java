@@ -10,8 +10,9 @@ import java.util.*;
  */
 public class MemoryDAO implements ToDoDAO {
     private static MemoryDAO ourInstance = new MemoryDAO();
-    private Map<HttpSession, List<ToDo>> toDos = new HashMap<HttpSession, List<ToDo>>();
+    private Map<HttpSession, List<ToDo>> toDos = new HashMap<>();
     private int idCounter = 0;
+
     private MemoryDAO() {
     }
 
@@ -28,7 +29,7 @@ public class MemoryDAO implements ToDoDAO {
     public List<ToDo> getDoneToDos(HttpSession session) {
         List<ToDo> doneToDos = new ArrayList<>();
         for (ToDo todo : toDos.get(session)) {
-            if (todo.isDone()) doneToDos.add(todo);
+            if (todo.isDone() == 1) doneToDos.add(todo);
         }
         return doneToDos;
     }
@@ -37,7 +38,7 @@ public class MemoryDAO implements ToDoDAO {
     public List<ToDo> getInProgressToDos(HttpSession session) {
         List<ToDo> inProgressToDos = new ArrayList<>();
         for (ToDo todo : toDos.get(session)) {
-            if (!todo.isDone()) inProgressToDos.add(todo);
+            if (todo.isDone() == 0) inProgressToDos.add(todo);
         }
         return inProgressToDos;
     }
@@ -47,8 +48,7 @@ public class MemoryDAO implements ToDoDAO {
 
         if (text.length() < 1) return;
         if (!toDos.containsKey(session)) {
-            System.out.println(text);
-            toDos.put(session, new ArrayList<ToDo>());
+            toDos.put(session, new ArrayList<>());
         }
         toDos.get(session).add(new ToDo(text, idCounter++));
     }
@@ -61,7 +61,7 @@ public class MemoryDAO implements ToDoDAO {
         while (iterator.hasNext()) {
             toDo = iterator.next();
             if (toDo.getId() == id) {
-                toDo.setDone(!toDo.isDone());
+                toDo.setDone(Math.abs(toDo.isDone() - 1));
             }
         }
     }

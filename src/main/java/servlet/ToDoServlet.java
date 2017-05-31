@@ -1,8 +1,9 @@
 package servlet;
 
 import com.google.gson.Gson;
-import dao.MemoryDAO;
+import dao.DBDAO;
 import dao.ToDoDAO;
+import util.ConnectionUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,14 +20,15 @@ import java.io.PrintWriter;
 @WebServlet("/todo/*")
 public class ToDoServlet extends HttpServlet {
 
-    ToDoDAO dao = MemoryDAO.getInstance();
+    //ToDoDAO dao = MemoryDAO.getInstance();
+    private ToDoDAO dao = new DBDAO(ConnectionUtil.getConnection(ConnectionUtil.DatabaseName.ToDo));
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         dao.addTodo(request.getParameter("text"), request.getSession());
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("json");
+        response.setContentType("text/json;charset=UTF-8");
         String status = request.getParameter("state");
         PrintWriter writer = response.getWriter();
         Gson gson = new Gson();
@@ -41,7 +43,13 @@ public class ToDoServlet extends HttpServlet {
                 break;
             case "d":
                 writer.println(gson.toJson(dao.getDoneToDos(session)));
+                break;
         }
+        writer.close();
+    }
 
+    @Override
+    public void destroy() {
+        if (dao instanceof DBDAO) ((DBDAO) dao).closeConnection();
     }
 }
